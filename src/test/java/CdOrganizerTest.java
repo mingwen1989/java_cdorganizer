@@ -8,10 +8,10 @@ public class CdOrganizerTest {
     CdOrganizer myCdOrganizer = new CdOrganizer("Thank Your Lucky Stars");
     assertEquals(true, myCdOrganizer instanceof CdOrganizer);
   }
-  // @Test
-  // public void Place_instantiatesWithDescription_String() {
-  //   Place myPlace = new Place("Paris");
-  //   assertEquals("Paris", myPlace.getLocation());
-  // }
+  @Test
+  public void CdOrganizer_returnsCdName_String() {
+    CdOrganizer myCdOrganizer = new CdOrganizer("Thank Your Lucky Stars");
+    assertEquals("Thank Your Lucky Stars", myCdOrganizer.getCdName());
+  }
 
 }

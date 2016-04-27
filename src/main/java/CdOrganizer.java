@@ -1,8 +1,12 @@
 public class CdOrganizer{
-  private String mLocation;
+  private String mCdName;
 
-  public CdOrganizer(String location) {
-    mLocation = location;
+  public CdOrganizer(String cdName) {
+    mCdName = cdName;
+  }
+
+  public String getCdName() {
+    return mCdName;
   }
 
 }
