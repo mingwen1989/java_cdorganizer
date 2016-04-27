@@ -22,7 +22,7 @@ public class AppTest extends FluentTest {
   @Test
   public void rootTest() {
     goTo("http://localhost:4567/");
-    assertThat(pageSource()).contains("CD list!");
+    assertThat(pageSource()).contains("My CD List");
   }
 
   @Test

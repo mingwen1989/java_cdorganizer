@@ -30,10 +30,17 @@ public class App {
       String artistName = request.queryParams("artistName");
 
       CdOrganizer newCdOrganizer = new CdOrganizer(cdName, artistName);
-
       organizer.add(newCdOrganizer);
-
       model.put("template", "templates/success.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/artists", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+
+
+      model.put("organizer", request.session().attribute("organizer"));
+      model.put("template", "templates/artistPage.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

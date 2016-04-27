@@ -1,23 +1,32 @@
-<h1>CD list!</h1>
-#if ($organizer)
-  <ul>
-    #foreach ($cdName in $organizer)
-      <li>$cdName.getCdName() by $cdName.getArtist()</li>
+<div class="container">
+  <h1 class = "jumbotron">My CD List</h1>
+  <div class="col-md-6">
+    <h3>Add a new CD:</h3>
+    <form action= "/organizer" method="post">
+      <label for="cdName">Enter CD:         </label>
+      <input id="cdName" name="cdName" type="text">
+      </br>
+      </br>
+      <label for="artistName">Enter Artist Name:</label>
+      <input id="artistName" name="artistName" type="text">
+      </br>
+      </br>
+      <button type="submit" class="btn btn-default">Add CD</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <form action="/artists" method="post">
+      <label type="hidden" name="action" value="myArtists">
+      <button type="click" id="myArtists" class="btn btn-default">Artist Page</button>
+    </form>
+    #if ($organizer)
+      <ul>
+        #foreach ($cds in $organizer)
+          <li id="listItems">$cds.getCdName() by $cds.getArtist()</li>
+        #end
+      </ul>
+    #else
+      <h4>No CDs!</h4>
     #end
-  </ul>
-#else
-  <p>No CDs!</p>
-#end
-
-<p>Add a new CD:</p>
-
-
-<form action="/organizer" method="post">
-  <label for="cdName">Enter CD:</label>
-  <input id="cdName" name="cdName" type="text">
-
-  <label for="artistName">Enter Artist Name:</label>
-  <input id="artistName" name="artistName" type="text">
-
-  <button type="submit" class="btn btn-default">Add CD</button>
-</form>
+  </div>
+</div>
