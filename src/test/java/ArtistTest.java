@@ -1,12 +1,14 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.ArrayList;
 
 public class ArtistTest {
+  @Rule
+  public ClearRule clearRule = new ClearRule();
 
   @Test
-  public void artist_determinesTheArtist_String() {
-    CdOrganizer newCd = new CdOrganizer("Thank Your Lucky Stars", "Beach House");
-    Artist testArtist = new Artist(newCd);
-    assertEquals("Beach House", testArtist.getArtist());
+  public void Artist_InstantiatesCorrectly_true() {
+    Artist testArtist = new Artist("Beach House");
+    assertEquals(true, testArtist instanceof Artist);
   }
 }

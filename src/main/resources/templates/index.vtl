@@ -2,31 +2,46 @@
   <h1 class = "jumbotron">My CD List</h1>
   <div class="col-md-6">
     <h3>Add a new CD:</h3>
-    <form action= "/organizer" method="post">
-      <label for="cdName">Enter CD:         </label>
-      <input id="cdName" name="cdName" type="text">
+    <form action= "/" method="post">
+      <div class="form-group">
+        <label for="cdName">Enter CD:</label>
+        <input id="cdName" name="cdName" type="text">
+      </div>
       </br>
       </br>
-      <label for="artistName">Enter Artist Name:</label>
-      <input id="artistName" name="artistName" type="text">
+      <div class="form-group">
+        <label for="artistName">Enter Artist Name:</label>
+        <input id="artistName" name="artistName" type="text">
+      </div>
       </br>
       </br>
       <button type="submit" class="btn btn-default">Add CD</button>
     </form>
   </div>
-  <div class="col-md-6">
-    <form action="/artists" method="post">
-      <label type="hidden" name="action" value="myArtists">
-      <button type="click" id="myArtists" class="btn btn-default">Artist Page</button>
-    </form>
-    #if ($organizer)
-      <ul>
-        #foreach ($cds in $organizer)
-          <li id="listItems">$cds.getCdName() by $cds.getArtist()</li>
-        #end
-      </ul>
-    #else
-      <h4>No CDs!</h4>
-    #end
+  <div class="row">
+    <div class="col-md-6">
+      #if ($allArtists)
+          <h2>Artists in My Collection:</h2>
+          <ul>
+            #foreach ($artist in $allArtists)
+            <form action="/" method="post" id="$artist">
+              <input type="hidden" value="$artist.getArtist()" name="chooseArtist">
+              <li><a onclick="document.getElementById('$artist').submit(); return false;">$artist.getArtist()</a></li>
+            </form>
+            #end
+          </ul>
+          #end
+        </div>
+        <div class="col-md-6">
+          #if ($testArtist)
+          $testArtist
+          #end
+          #if ($thisArtist)
+          <ol>
+            #foreach ($cd in $thisArtist.getCdsByArtist())
+            <li>$cd.getTitle()</li>
+            #end
+          </ol>
+          #end
   </div>
 </div>

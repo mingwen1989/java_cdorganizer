@@ -12,35 +12,42 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      model.put("organizer", request.session().attribute("organizer"));
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/organizer", (request, response) -> {
+    post("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
-      ArrayList<CdOrganizer> organizer = request.session().attribute("organizer");
-      if (organizer == null) {
-        organizer = new ArrayList<CdOrganizer>();
-        request.session().attribute("organizer", organizer);
-      }
-
       String cdName = request.queryParams("cdName");
       String artistName = request.queryParams("artistName");
+      if (artistName != null) {
+              Cd newCd = new Cd(cdName);
+              boolean duplicateArtist = false;
+              for (Artist singer : Artist.all()) {
+                if (artistName.equals(singer.getArtist())){
+                  singer.addTitle(newCd);
+                  duplicateArtist = true;
+                }
+              }
+              if (duplicateArtist == false) {
+                Artist newArtist = new Artist(artistName);
+                newArtist.addTitle(newCd);
+              }
+            }
 
-      CdOrganizer newCdOrganizer = new CdOrganizer(cdName, artistName);
-      organizer.add(newCdOrganizer);
-      model.put("template", "templates/success.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+            String chosenArtist = request.queryParams("chooseArtist");
+            if (chosenArtist != null) {
+              for (Artist singer : Artist.all()) {
+                if (chosenArtist.equals(singer.getArtist())){
+                  Artist thisArtist = singer;
+                  model.put("thisArtist", thisArtist);
+                }
+              }
+              model.put("testArtist", chosenArtist);
+            }
 
-    post("/artists", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-
-
-      model.put("organizer", request.session().attribute("organizer"));
-      model.put("template", "templates/artistPage.vtl");
+            model.put("allArtists", Artist.all());
+      model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }
