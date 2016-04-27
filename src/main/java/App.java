@@ -12,16 +12,25 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+      model.put("organizer", request.session().attribute("organizer"));
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/cds", (request, response) -> {
+    post("/organizer", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
 
-      String cdName = request.queryParams("cdname");
-      model.put("cdName", cdName);
+      ArrayList<CdOrganizer> organizer = request.session().attribute("organizer");
+      if (organizer == null) {
+        organizer = new ArrayList<CdOrganizer>();
+        request.session().attribute("organizer", organizer);
+      }
 
+      String cdName = request.queryParams("cdName");
+      CdOrganizer newCdOrganizer = new CdOrganizer(cdName);
+      organizer.add(newCdOrganizer);
+
+      // model.put("CdOrganizer", request.session().attribute("CdOrganizer"));
       model.put("template", "templates/success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

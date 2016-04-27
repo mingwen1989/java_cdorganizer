@@ -1,6 +1,18 @@
 <h1>CD list!</h1>
+#if ($organizer)
+  <ul>
+    #foreach ($cdName in $organizer)
+      <li>$cdName.getCdName()</li>
+    #end
+  </ul>
+#else
+  <p>No CDs!</p>
+#end
 
-<form action="/cds" method="post">
+<p>Add a new CD:</p>
+
+
+<form action="/organizer" method="post">
   <label for="cdName">Enter CD:</label>
   <input id="cdName" name="cdName" type="text">
 

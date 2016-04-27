@@ -26,33 +26,33 @@ public class AppTest extends FluentTest {
   }
 
   @Test
-  public void placeIsCreatedTest(){
+  public void CdIsCreatedTest(){
     goTo("http://localhost:4567/");
     fill("#cdName").with("Thank Your Lucky Stars");
     submit(".btn");
     assertThat(pageSource()).contains("has been saved.");
   }
 
-  // @Test
-  // public void placeIsDisplayedTest() {
-  //   goTo("http://localhost:4567/");
-  //   fill("#location").with("Paris");
-  //   submit(".btn");
-  //   click("a", withText("Go Back"));
-  //   assertThat(pageSource()).contains("Paris");
-  // }
-  //
-  //
-  // @Test
-  // public void multiplePlacesAreDisplayedTest() {
-  //   goTo("http://localhost:4567/");
-  //   fill("#location").with("Paris");
-  //   submit(".btn");
-  //   click("a", withText("Go Back"));
-  //   fill("#location").with("Istanbul");
-  //   submit(".btn");
-  //   click("a", withText("Go Back"));
-  //   assertThat(pageSource()).contains("Paris");
-  //   assertThat(pageSource()).contains("Istanbul");
-  // }
+  @Test
+  public void CdIsDisplayedTest() {
+    goTo("http://localhost:4567/");
+    fill("#cdName").with("Thank Your Lucky Stars");
+    submit(".btn");
+    click("a", withText("Go Back"));
+    assertThat(pageSource()).contains("Thank Your Lucky Stars");
+  }
+
+
+  @Test
+  public void multiplePlacesAreDisplayedTest() {
+    goTo("http://localhost:4567/");
+    fill("#cdName").with("Thank Your Lucky Stars");
+    submit(".btn");
+    click("a", withText("Go Back"));
+    fill("#cdName").with("Istanbul");
+    submit(".btn");
+    click("a", withText("Go Back"));
+    assertThat(pageSource()).contains("Thank Your Lucky Stars");
+    assertThat(pageSource()).contains("Istanbul");
+  }
 }
