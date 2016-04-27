@@ -28,8 +28,9 @@ public class App {
 
       String cdName = request.queryParams("cdName");
       String artistName = request.queryParams("artistName");
-      
+
       CdOrganizer newCdOrganizer = new CdOrganizer(cdName, artistName);
+
       organizer.add(newCdOrganizer);
 
       model.put("template", "templates/success.vtl");

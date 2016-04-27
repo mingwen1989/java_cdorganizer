@@ -2,7 +2,7 @@
 #if ($organizer)
   <ul>
     #foreach ($cdName in $organizer)
-      <li>$cdName.getCdName()</li>
+      <li>$cdName.getCdName() by $cdName.getArtist()</li>
     #end
   </ul>
 #else
