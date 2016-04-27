@@ -27,10 +27,11 @@ public class App {
       }
 
       String cdName = request.queryParams("cdName");
-      CdOrganizer newCdOrganizer = new CdOrganizer(cdName);
+      String artistName = request.queryParams("artistName");
+      
+      CdOrganizer newCdOrganizer = new CdOrganizer(cdName, artistName);
       organizer.add(newCdOrganizer);
 
-      // model.put("CdOrganizer", request.session().attribute("CdOrganizer"));
       model.put("template", "templates/success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
